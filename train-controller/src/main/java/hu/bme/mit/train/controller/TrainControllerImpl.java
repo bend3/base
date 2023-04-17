@@ -1,6 +1,10 @@
 package hu.bme.mit.train.controller;
 
 import hu.bme.mit.train.interfaces.TrainController;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
@@ -10,6 +14,19 @@ public class TrainControllerImpl implements TrainController {
 	private int referenceSpeed = 0;
 	private int speedLimit = 0;
 	Table<Integer, Integer, Integer> tacographData = HashBasedTable.create();
+	private Timer timer;
+
+	//override constructor
+	public TrainControllerImpl() {
+		//start a timer and follow speed every 1000ms
+		timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				followSpeed();
+			}
+		}, 0, 1000);
+	}
 
 	@Override
 	public void followSpeed() {
