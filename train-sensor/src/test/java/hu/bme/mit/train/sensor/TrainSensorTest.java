@@ -89,4 +89,17 @@ public class TrainSensorTest {
         verify(user, times(0)).setAlarmState(true);
     }
 
+    /**
+     * Get the current speed limit
+     * The speed limit should be the same as the one set
+     */
+
+    @Test
+    public void GetSpeedLimit_ReturnsCorrectSpeedLimit() {
+
+        when(controller.getReferenceSpeed()).thenReturn(100);
+        sensor.overrideSpeedLimit(50);
+        Assert.assertEquals(50, sensor.getSpeedLimit());
+    }
+
 }
