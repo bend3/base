@@ -14,11 +14,12 @@ public class TrainControllerImpl implements TrainController {
 	private int referenceSpeed = 0;
 	private int speedLimit = 0;
 	Table<Integer, Integer, Integer> tacographData = HashBasedTable.create();
+	private Timer timer;
 
 	//override constructor
 	public TrainControllerImpl() {
 		//start a timer and follow speed every 1000ms
-		Timer timer = new Timer();
+		timer = new Timer();
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
